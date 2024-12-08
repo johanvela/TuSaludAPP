@@ -1,0 +1,60 @@
+<div class="container d-flex align-items-center justify-content-center min-vh-100">
+    <div class="card p-4 shadow" style="max-width: 400px; width: 100%;">
+      <h3 class="text-center mb-4">Registrarse</h3>
+      <form (ngSubmit)="onSubmit()">
+        <div class="form-group mb-3">
+          <label for="nombres" class="form-label">Nombres</label>
+          <input
+            type="text"
+            id="nombres"
+            [(ngModel)]="credentials.nombres"
+            name="nombres"
+            class="form-control"
+            placeholder="Ingresa tus nombres"
+            required
+          />
+        </div>
+        <div class="form-group mb-3">
+          <label for="correo" class="form-label">Correo</label>
+          <input
+            type="email"
+            id="correo"
+            [(ngModel)]="credentials.correo"
+            name="correo"
+            class="form-control"
+            placeholder="Ingresa tu correo"
+            required
+          />
+        </div>
+        <div class="form-group mb-3">
+          <label for="dni" class="form-label">DNI</label>
+          <input
+            type="text"
+            id="dni"
+            [(ngModel)]="credentials.dni"
+            name="dni"
+            class="form-control"
+            placeholder="Ingresa tu DNI"
+            required
+          />
+        </div>
+        <div class="form-group mb-3">
+          <label for="contrasena" class="form-label">Contraseña</label>
+          <input
+            type="password"
+            id="contrasena"
+            [(ngModel)]="credentials.contrasena"
+            name="contrasena"
+            class="form-control"
+            placeholder="Crea una contraseña"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Registrar</button>
+      </form>
+      <div class="text-center mt-3">
+        <a routerLink="/login">¿Ya tienes una cuenta? Inicia sesión</a>
+      </div>
+    </div>
+  </div>
+  
