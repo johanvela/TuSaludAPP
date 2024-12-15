@@ -1,0 +1,48 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card shadow">
+          <div class="card-header bg-success text-white text-center">
+            <h3>Mi Perfil</h3>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <strong>Nombre:</strong>
+                <p>{{ user.nombres }}</p>
+              </div>
+              <div class="col-md-6 mb-3">
+                <strong>Correo:</strong>
+                <p>{{ user.correo }}</p>
+              </div>
+              <div class="col-md-6 mb-3">
+                <strong>DNI:</strong>
+                <p>{{ user.dni }}</p>
+              </div>
+              <div class="col-md-6 mb-3">
+                <strong>Edad:</strong>
+                <p>{{ user.edad || 'No ingresada' }}</p>
+              </div>
+              <div class="col-md-6 mb-3">
+                <strong>Peso:</strong>
+                <p>{{ user.peso || 'No ingresado' }} kg</p>
+              </div>
+              <div class="col-md-6 mb-3">
+                <strong>Altura:</strong>
+                <p>{{ user.altura || 'No ingresada' }} m</p>
+              </div>
+              <div class="col-md-6 mb-3">
+                <strong>Sexo:</strong>
+                <p>{{ user.sexo || 'No especificado' }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer text-center">
+            <button class="btn btn-primary me-3" routerLink="/home">Volver a Inicio</button>
+            <button class="btn btn-danger" (click)="logout()">Cerrar Sesión</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

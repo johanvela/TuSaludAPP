@@ -8,15 +8,31 @@ import { LoginResponse } from '../models/user.model';
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3001'; 
+  private apiUrl = 'http://localhost:3001';
+  private userId: number | null = null; // Variable temporal para el ID del usuario
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  // Método para realizar el login
+  // Login: Envía credenciales y recibe respuesta del backend
   login(credentials: Credentials): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${this.apiUrl}/login`, credentials, {
+    return this.http.post<LoginResponse>(`${this.apiUrl}/login`, credentials,{
       headers: { 'Content-Type': 'application/json' },
     });
+  }
+
+  // Guarda el ID del usuario
+  setUserId(id: number) {
+    this.userId = id;
+  }
+
+  // Obtiene el ID del usuario
+  getUserId(): number | null {
+    return this.userId;
+  }
+
+  // Obtiene el perfil del usuario desde el backend usando su ID
+  getProfile(userId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/profile/${userId}`);
   }
   register(credentials: {
     nombres: string;
@@ -28,5 +44,8 @@ export class AuthService {
       headers: { 'Content-Type': 'application/json' },
     });
   }
-  
+  // Cierra sesión (limpia el ID del usuario)
+  logout() {
+    this.userId = null;
+  }
 }
