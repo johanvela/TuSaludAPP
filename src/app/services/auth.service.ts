@@ -9,31 +9,33 @@ import { LoginResponse } from '../models/user.model';
 })
 export class AuthService {
   private apiUrl = 'http://localhost:3001';
-  private userId: number | null = null; // Variable temporal para el ID del usuario
+  private userId: number | null = null; // <-- Variable para almacenar temporalmente el ID del usuario
 
   constructor(private http: HttpClient) { }
 
   // Login: Envía credenciales y recibe respuesta del backend
   login(credentials: Credentials): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${this.apiUrl}/login`, credentials,{
+    return this.http.post<LoginResponse>(`${this.apiUrl}/login`, credentials, {
       headers: { 'Content-Type': 'application/json' },
     });
   }
 
-  // Guarda el ID del usuario
-  setUserId(id: number) {
+  // Guarda el ID del usuario después del login
+  setUserId(id: number) { // <-- Guarda temporalmente el ID
     this.userId = id;
   }
 
-  // Obtiene el ID del usuario
-  getUserId(): number | null {
+  // Obtiene el ID del usuario guardado
+  getUserId(): number | null { // <-- Recupera el ID temporal
     return this.userId;
   }
 
-  // Obtiene el perfil del usuario desde el backend usando su ID
-  getProfile(userId: number): Observable<any> {
+  // Obtiene el perfil del usuario desde el backend
+  getProfile(userId: number): Observable<any> { // <-- Usa el ID para llamar a /profile/:id
     return this.http.get<any>(`${this.apiUrl}/profile/${userId}`);
   }
+
+  // Registro de usuario
   register(credentials: {
     nombres: string;
     correo: string;
@@ -44,8 +46,9 @@ export class AuthService {
       headers: { 'Content-Type': 'application/json' },
     });
   }
+
   // Cierra sesión (limpia el ID del usuario)
-  logout() {
-    this.userId = null;
+  logout() { 
+    this.userId = null; // <-- Limpia el ID temporal
   }
 }

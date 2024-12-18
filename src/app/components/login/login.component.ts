@@ -16,28 +16,42 @@ import { LoginResponse } from '../../models/user.model';
 export class LoginComponent {
   credentials: Credentials = { correo: '', contrasena: '' };
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) {}
 
   onSubmit() {
     console.log('Enviando credenciales:', this.credentials);
-  
+
+    // Llamar al servicio de login
     this.authService.login(this.credentials).subscribe({
       next: (response: LoginResponse) => {
         console.log('Login exitoso:', response);
-  
-        // Guarda el ID del usuario en el AuthService (memoria)
+
+        // Guarda el ID del usuario en memoria
         this.authService.setUserId(response.usuario.id);
-  
-        // Navega al HomeComponent
-        alert(`Bienvenido, ${response.usuario.nombres}`);
-        this.router.navigate(['/home']);
+
+        // Recupera el perfil del usuario
+        const userId = this.authService.getUserId();
+        if (userId) {
+          this.authService.getProfile(userId).subscribe({
+            next: (profile) => {
+              console.log('Perfil del usuario:', profile);
+              alert(`Bienvenido, ${profile.usuario.nombres}`);
+              // Redirige al HomeComponent
+              this.router.navigate(['/home']);
+            },
+            error: (err) => {
+              console.error('Error al recuperar perfil:', err);
+              alert('Ocurrió un error al cargar el perfil.');
+            },
+          });
+        }
       },
       error: (err) => {
         console.error('Error en el login:', err);
-        alert('Nombre de usuario o contraseña incorrecta');
+        alert('Nombre de usuario o contraseña incorrecta.');
       },
     });
-  }  
+  }
 
   navigateToRegister() {
     this.router.navigate(['/register']);
