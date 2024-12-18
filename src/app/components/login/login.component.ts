@@ -26,13 +26,14 @@ export class LoginComponent {
       next: (response: LoginResponse) => {
         console.log('Login exitoso:', response);
 
-        // Guarda el ID del usuario en memoria
-        this.authService.setUserId(response.usuario.id);
+        // Verificación de la respuesta
+        if (response.usuario && response.usuario.id) {
+          // Guarda el ID del usuario en memoria
+          this.authService.setUserId(response.usuario.id);
 
-        // Recupera el perfil del usuario
-        const userId = this.authService.getUserId();
-        if (userId) {
-          this.authService.getProfile(userId).subscribe({
+          // Recupera el perfil del usuario
+          const userId = this.authService.getUserId();
+          this.authService.getProfile(userId!).subscribe({
             next: (profile) => {
               console.log('Perfil del usuario:', profile);
               alert(`Bienvenido, ${profile.usuario.nombres}`);
@@ -44,6 +45,9 @@ export class LoginComponent {
               alert('Ocurrió un error al cargar el perfil.');
             },
           });
+        } else {
+          console.error('Error: La respuesta del servidor no contiene el usuario o el ID.');
+          alert('Error en la respuesta del servidor.');
         }
       },
       error: (err) => {

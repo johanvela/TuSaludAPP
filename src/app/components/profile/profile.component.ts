@@ -27,7 +27,7 @@ export class ProfileComponent implements OnInit {
     this.authService.getProfile(userId).subscribe({
       next: (response) => {
         console.log('Datos del perfil recibidos:', response);
-        this.user = response;
+        this.user = response.usuario; // Acceder específicamente a "usuario"
       },
       error: (err) => {
         console.error('Error al cargar el perfil:', err);
