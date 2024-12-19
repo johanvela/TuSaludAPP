@@ -1,13 +1,10 @@
 <div class="container-fluid home-container text-center text-lg-start">
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
             <a class="navbar-brand" href="#">
                 <img src="assets/health-logo.png" alt="Salud Logo" width="120">
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
@@ -15,9 +12,6 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Índice Corporal</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Recomendaciones</a>
                     </li>
                     <li class="nav-item">
                         <a class="btn btn-outline-primary me-2" (click)="navigateToProfile()">
@@ -32,41 +26,37 @@
         </div>
     </nav>
 
-    <div class="container text-center mt-5">
-        <div class="row align-items-center">
-            <div class="col-lg-6 text-start">
-                <h1 class="display-4 fw-bold">Un nuevo enfoque para <span class="text-success">mejorar tu salud</span>
-                </h1>
-                <p class="lead">
-                    Planifica tus metas de salud con recomendaciones personalizadas, seguimiento de peso, índice
-                    corporal y consejos de alimentación.
-                </p>
-            </div>
-            <div class="col-lg-6 text-center">
-                <img src="assets/health-hero.png" alt="Salud Hero Image" class="img-fluid">
-            </div>
-        </div>
-    </div>
-
-    <div class="container text-center mt-5">
+    <!-- Gráficos -->
+    <div class="container mt-5">
         <div class="row">
-            <div class="col">
-                <a href="#">
-                    <img src="assets/track-progress.png" alt="Progreso" class="img-fluid" width="200">
-                </a>
-                <p>Monitorea tu progreso</p>
+            <!-- Gráfico de Barras para Índice Corporal -->
+            <div class="col-md-6">
+                <h3>Distribución del Índice Corporal</h3>
+                <ngx-charts-bar-vertical
+                    [view]="[500, 300]"
+                    [scheme]="colorScheme"
+                    [results]="bmiData"
+                    [gradient]="false"
+                    [xAxis]="true"
+                    [yAxis]="true"
+                    [legend]="true"
+                    [showXAxisLabel]="true"
+                    [showYAxisLabel]="true"
+                    [xAxisLabel]="'Categorías'"
+                    [yAxisLabel]="'Porcentaje'">
+                </ngx-charts-bar-vertical>
             </div>
-            <div class="col">
-                <a href="#">
-                    <img src="assets/healthy-eating.png" alt="Alimentación" class="img-fluid" width="200">
-                </a>
-                <p>Planifica tu alimentación</p>
-            </div>
-            <div class="col">
-                <a href="#">
-                    <img src="assets/custom-goals.png" alt="Metas Personalizadas" class="img-fluid" width="200">
-                </a>
-                <p>Establece tus metas</p>
+
+            <!-- Gráfico Circular para Alimentación Semanal -->
+            <div class="col-md-6">
+                <h3>Composición de la Alimentación Semanal</h3>
+                <ngx-charts-pie-chart
+                    [view]="[500, 300]"
+                    [scheme]="colorScheme"
+                    [results]="weeklyNutrition"
+                    [legend]="true"
+                    [labels]="true">
+                </ngx-charts-pie-chart>
             </div>
         </div>
     </div>
