@@ -9,6 +9,7 @@
   button {
     background-color: #007bff;
     border: none;
+    color: white;
   }
   
   button:hover {

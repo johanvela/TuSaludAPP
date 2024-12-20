@@ -1,0 +1,19 @@
+.card-header.bg-danger {
+    background-color: #dc3545; /* Color rojo */
+    border-bottom: 2px solid #bd2130;
+  }
+  
+  .card-footer {
+    background-color: #f8f9fa;
+  }
+  
+  .btn-danger {
+    background-color: #dc3545;
+    border-color: #bd2130;
+  }
+  
+  .btn-secondary {
+    background-color: #6c757d;
+    border-color: #5a6268;
+  }
+  

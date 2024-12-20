@@ -47,6 +47,13 @@ export class AuthService {
     });
   }
 
+  deleteAccount(userId: number, password: string): Observable<any> {
+    const url = 'http://localhost:3001/delete-account';
+    return this.http.post(url, { userId, password }, {
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
   // Cierra sesión (limpia el ID del usuario)
   logout() { 
     this.userId = null; // <-- Limpia el ID temporal

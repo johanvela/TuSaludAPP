@@ -38,8 +38,11 @@
             </div>
           </div>
           <div class="card-footer text-center">
-            <button class="btn btn-primary me-3" routerLink="/home">Volver a Inicio</button>
+            <button class="btn btn-primary me-3" (click)="navigateToHome()">Volver a Inicio</button>
             <button class="btn btn-danger" (click)="logout()">Cerrar Sesión</button>
+          </div>
+          <div class="col-12">
+            <button class="btn btn-warning w-100" (click)="navigateToDeleteAccount()">Eliminar Cuenta</button>
           </div>
         </div>
       </div>
