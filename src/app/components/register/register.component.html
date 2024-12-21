@@ -1,55 +1,89 @@
 <div class="container d-flex align-items-center justify-content-center min-vh-100">
-    <div class="card p-4 shadow" style="max-width: 400px; width: 100%;">
-      <h3 class="text-center mb-4">Registrarse</h3>
-      <form (ngSubmit)="onSubmit()">
-        <div class="form-group mb-3">
-          <label for="nombres" class="form-label">Nombres</label>
-          <input
-            type="text"
-            id="nombres"
-            [(ngModel)]="credentials.nombres"
-            name="nombres"
-            class="form-control"
-            placeholder="Ingresa tus nombres"
-            required
-          />
+  <div class="card p-4 shadow" style="max-width: 400px; width: 100%;">
+    <h3 class="text-center mb-4">Registrarse</h3>
+    <form #registerForm="ngForm" (ngSubmit)="onSubmit()">
+      <!-- Nombres -->
+      <div class="form-group mb-3">
+        <label for="nombres" class="form-label">Nombres</label>
+        <input
+          type="text"
+          id="nombres"
+          [(ngModel)]="credentials.nombres"
+          name="nombres"
+          class="form-control"
+          placeholder="Ingresa tus nombres"
+          required
+          minlength="4"
+          #nombres="ngModel"
+        />
+        <div *ngIf="nombres.invalid && nombres.touched" class="text-danger">
+          <small *ngIf="nombres.errors?.['required']">El nombre es obligatorio.</small>
+          <small *ngIf="nombres.errors?.['minlength']">El nombre debe tener al menos 4 letras.</small>
         </div>
-        <div class="form-group mb-3">
-          <label for="correo" class="form-label">Correo</label>
-          <input
-            type="email"
-            id="correo"
-            [(ngModel)]="credentials.correo"
-            name="correo"
-            class="form-control"
-            placeholder="Ingresa tu correo"
-            required
-          />
+      </div>
+
+      <!-- Correo -->
+      <div class="form-group mb-3">
+        <label for="correo" class="form-label">Correo</label>
+        <input
+          type="email"
+          id="correo"
+          [(ngModel)]="credentials.correo"
+          name="correo"
+          class="form-control"
+          placeholder="Ingresa tu correo"
+          required
+          email
+          #correo="ngModel"
+        />
+        <div *ngIf="correo.invalid && correo.touched" class="text-danger">
+          <small *ngIf="correo.errors?.['required']">El correo es obligatorio.</small>
+          <small *ngIf="correo.errors?.['email']">El correo debe tener un formato válido.</small>
         </div>
-        <div class="form-group mb-3">
-          <label for="dni" class="form-label">DNI</label>
-          <input
-            type="text"
-            id="dni"
-            [(ngModel)]="credentials.dni"
-            name="dni"
-            class="form-control"
-            placeholder="Ingresa tu DNI"
-            required
-          />
+      </div>
+
+      <!-- DNI -->
+      <div class="form-group mb-3">
+        <label for="dni" class="form-label">DNI</label>
+        <input
+          type="text"
+          id="dni"
+          [(ngModel)]="credentials.dni"
+          name="dni"
+          class="form-control"
+          placeholder="Ingresa tu DNI"
+          required
+          pattern="^[0-9]{8}$"
+          #dni="ngModel"
+        />
+        <div *ngIf="dni.invalid && dni.touched" class="text-danger">
+          <small *ngIf="dni.errors?.['required']">El DNI es obligatorio.</small>
+          <small *ngIf="dni.errors?.['pattern']">El DNI debe tener exactamente 8 dígitos.</small>
         </div>
-        <div class="form-group mb-3">
-          <label for="contrasena" class="form-label">Contraseña</label>
-          <input
-            type="password"
-            id="contrasena"
-            [(ngModel)]="credentials.contrasena"
-            name="contrasena"
-            class="form-control"
-            placeholder="Crea una contraseña"
-            required
-          />
+      </div>
+
+      <!-- Contraseña -->
+      <div class="form-group mb-3">
+        <label for="contrasena" class="form-label">Contraseña</label>
+        <input
+          type="password"
+          id="contrasena"
+          [(ngModel)]="credentials.contrasena"
+          name="contrasena"
+          class="form-control"
+          placeholder="Crea una contraseña"
+          required
+          pattern="^(?=.*[A-Z])(?=.*[0-9]).{8,}$"
+          #contrasena="ngModel"
+        />
+        <div *ngIf="contrasena.invalid && contrasena.touched" class="text-danger">
+          <small *ngIf="contrasena.errors?.['required']">La contraseña es obligatoria.</small>
+          <small *ngIf="contrasena.errors?.['pattern']">
+            La contraseña debe tener al menos 8 caracteres, incluir una mayúscula y un número.
+          </small>
         </div>
+      </div>
+
         <button type="submit" class="btn btn-primary w-100">Registrar</button>
       </form>
       <div class="text-center mt-3">
