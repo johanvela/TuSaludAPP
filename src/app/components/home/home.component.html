@@ -54,47 +54,11 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Lunes</td>
-                    <td>Avena con frutas</td>
-                    <td>Pechuga de pollo con ensalada</td>
-                    <td>Sopa de verduras</td>
-                </tr>
-                <tr>
-                    <td>Martes</td>
-                    <td>Yogur con granola</td>
-                    <td>Pescado a la plancha con arroz integral</td>
-                    <td>Crema de espinacas</td>
-                </tr>
-                <tr>
-                    <td>Miércoles</td>
-                    <td>Pan integral con huevo</td>
-                    <td>Lomo saltado con quinoa</td>
-                    <td>Ensalada César</td>
-                </tr>
-                <tr>
-                    <td>Jueves</td>
-                    <td>Batido de frutas</td>
-                    <td>Estofado de carne con papas</td>
-                    <td>Tortilla de verduras</td>
-                </tr>
-                <tr>
-                    <td>Viernes</td>
-                    <td>Panqueques de avena</td>
-                    <td>Pollo al horno con camote</td>
-                    <td>Arroz chaufa vegetariano</td>
-                </tr>
-                <tr>
-                    <td>Sábado</td>
-                    <td>Frutas frescas con yogur</td>
-                    <td>Pasta integral con salsa de tomate</td>
-                    <td>Caldo de pollo</td>
-                </tr>
-                <tr>
-                    <td>Domingo</td>
-                    <td>Omelette de verduras</td>
-                    <td>Arroz con pollo</td>
-                    <td>Ensalada de frutas</td>
+                <tr *ngFor="let plan of planNutricional">
+                    <td>{{ plan.dia }}</td>
+                    <td>{{ plan.desayuno }}</td>
+                    <td>{{ plan.almuerzo }}</td>
+                    <td>{{ plan.cena }}</td>
                 </tr>
             </tbody>
         </table>

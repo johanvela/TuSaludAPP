@@ -47,12 +47,21 @@ export class AuthService {
     });
   }
 
+  // Eliminar Usuario
   deleteAccount(userId: number, password: string): Observable<any> {
     const url = 'http://localhost:3001/delete-account';
     return this.http.post(url, { userId, password }, {
       headers: { 'Content-Type': 'application/json' },
     });
   }
+
+    // Obtener el plan nutricional basado en el IMC del usuario
+    getNutritionPlan(bmi: number): Observable<any> {
+      return this.http.post<any>(`${this.apiUrl}/get-nutrition-plan`, { bmi }, {
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+  
 
   // Cierra sesión (limpia el ID del usuario)
   logout() { 

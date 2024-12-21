@@ -26,6 +26,7 @@ export class HomeComponent implements OnInit {
   bmiCategory: string = '';
   recommendation: string = '';
   weightGoal: string = '';
+  planNutricional: any[] = [];
 
   // Datos estáticos para gráficos
   bmiData = [
@@ -55,6 +56,8 @@ export class HomeComponent implements OnInit {
     }
     // Cálculo del IMC
     this.calculateBMI();
+    // Ejecuta el metodo del plan nutricional
+    this.fetchNutritionPlan();
   }
 
   calculateBMI(): void {
@@ -79,6 +82,17 @@ export class HomeComponent implements OnInit {
       this.recommendation = 'Es fundamental trabajar para reducir peso. Consulte a un profesional de salud para una dieta adecuada y realice ejercicios de bajo impacto como caminar o ciclismo estacionario.';
       this.weightGoal = 'Usted debe bajar de peso para reducir riesgos a su salud.';
     }
+  }
+
+  fetchNutritionPlan(): void {
+    this.authService.getNutritionPlan(this.bmi).subscribe(
+      (response: any) => {
+        this.planNutricional = response.plan;
+      },
+      (error) => {
+        console.error('Error al obtener el plan nutricional:', error);
+      }
+    );
   }
 
   navigateToProfile() {
