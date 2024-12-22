@@ -11,6 +11,8 @@ export class AuthService {
   private apiUrl = 'http://localhost:3001';
   private userId: number | null = null; // <-- Variable para almacenar temporalmente el ID del usuario
 
+
+
   constructor(private http: HttpClient) { }
 
   // Login: Envía credenciales y recibe respuesta del backend
@@ -19,6 +21,7 @@ export class AuthService {
       headers: { 'Content-Type': 'application/json' },
     });
   }
+  
 
   // Guarda el ID del usuario después del login
   setUserId(id: number) { // <-- Guarda temporalmente el ID
@@ -68,3 +71,4 @@ export class AuthService {
     this.userId = null; // <-- Limpia el ID temporal
   }
 }
+

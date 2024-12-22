@@ -1,18 +1,24 @@
 <div class="container-fluid home-container text-center text-lg-start">
-    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" href="#">
-                <img src="assets/health-logo.png" alt="Salud Logo" width="120">
+            <a class="navbar-brand">
+                <img src="../../../../assets/img/health-logo.png" alt="Salud Logo" width="120">
             </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Alimentación</a>
+                        <a class="nav-link nav-link-custom" (click)="navigateToFeeding()" style="cursor: pointer;">
+                            Alimentación
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Índice Corporal</a>
-                    </li>
+                        <a class="nav-link nav-link-custom" (click)="navigateToBmi()" style="cursor: pointer;">
+                            Índice Corporal
+                        </a>                    </li>
                     <li class="nav-item">
                         <a class="btn btn-outline-primary me-2" (click)="navigateToProfile()">
                             Ver Perfil
@@ -25,42 +31,19 @@
             </div>
         </div>
     </nav>
-
-    <!-- Información del Usuario -->
-    <div class="container mt-5">
-        <h3>Información del Usuario</h3>
-        <p><strong>Sexo:</strong> {{ userData.sexo }}</p>
-        <p><strong>Edad:</strong> {{ userData.edad }} años</p>
-        <p><strong>Talla:</strong> {{ userData.talla }} cm</p>
-        <p><strong>Peso:</strong> {{ userData.peso }} kg</p>
-        <p><strong>IMC:</strong> {{ bmi }} (<em>{{ bmiCategory }}</em>)</p>
-        <p><strong>Recomendación:</strong> {{ recommendation }}</p>
-        <p><strong>Resultado:</strong> {{ weightGoal }}</p>
-    </div>
-
-    <!-- Espacio antes de la tabla -->
-    <div class="mt-4"></div>
-
-    <!-- Tabla de alimentación semanal -->
-    <div class="container mt-3">
-        <h3>Tabla de Alimentación Semanal</h3>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Día</th>
-                    <th>Desayuno</th>
-                    <th>Almuerzo</th>
-                    <th>Cena</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let plan of planNutricional">
-                    <td>{{ plan.dia }}</td>
-                    <td>{{ plan.desayuno }}</td>
-                    <td>{{ plan.almuerzo }}</td>
-                    <td>{{ plan.cena }}</td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="container text-center mt-5">
+        <div class="row align-items-center">
+            <div class="col-lg-6 text-start">
+                <h1 class="display-4 fw-bold">Un nuevo enfoque para <span class="text-success">mejorar tu salud</span>
+                </h1>
+                <p class="lead">
+                    Planifica tus metas de salud con recomendaciones personalizadas, seguimiento de peso, índice
+                    corporal y consejos de alimentación.
+                </p>
+            </div>
+            <div class="col-lg-6 text-center">
+                <img src="../../../../assets/img/imagen1.jpg" alt="Salud Hero Image" class="img-fluid">
+            </div>
+        </div>
     </div>
 </div>

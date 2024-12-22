@@ -1,0 +1,69 @@
+<div class="container-fluid home-container text-center text-lg-start">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="../../../../assets/img/health-logo.png" alt="Salud Logo" width="120">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-custom" (click)="navigateToHome()" style="cursor: pointer;">
+                            Inicio
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-custom" (click)="navigateToBmi()" style="cursor: pointer;">
+                            Índice Corporal
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-outline-primary me-2" (click)="navigateToProfile()">
+                            Ver Perfil
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-primary" (click)="logout()">Cerrar Sesión</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido principal -->
+    <div class="container mt-5">
+        <h1 class="text-center text-success mb-4">Plan de Alimentación Semanal</h1>
+        <p class="text-center text-muted mb-4">
+            Un plan diseñado para mejorar tu salud y bienestar.
+        </p>
+
+        <!-- Tabla de alimentación -->
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover text-center">
+                <thead class="bg-success text-white">
+                    <tr>
+                        <th>Día</th>
+                        <th>Desayuno</th>
+                        <th>Almuerzo</th>
+                        <th>Cena</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let plan of planNutricional; let i = index" [class.table-success]="i % 2 === 0">
+                        <td>{{ plan.dia }}</td>
+                        <td>{{ plan.desayuno }}</td>
+                        <td>{{ plan.almuerzo }}</td>
+                        <td>{{ plan.cena }}</td>
+                    </tr>
+                    <!-- Mensaje para datos vacíos -->
+                    <tr *ngIf="!planNutricional.length">
+                        <td colspan="4" class="text-muted">No hay datos disponibles. Por favor, intente más tarde.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
