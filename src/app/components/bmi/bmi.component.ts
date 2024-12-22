@@ -23,8 +23,7 @@ export class BMIComponent implements OnInit {
   weightGoal: string = '';
 
   constructor(private sharedService: SharedService, private router: Router) {}
-
-
+  currentView = 'bmi';
   ngOnInit(): void {
     this.calculateBMI();
   }

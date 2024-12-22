@@ -15,4 +15,39 @@
   button:hover {
     background-color: #0056b3;
   }
-  
+
+  /* Estilo base para animación */
+.animate-btn {
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Expansión al pasar el cursor */
+.animate-btn:hover {
+  transform: scale(1.05); /* Aumenta el tamaño ligeramente */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Añade sombra */
+}
+
+/* Botón principal */
+.btn-primary.animate-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+}
+
+/* Hover para botón principal */
+.btn-primary.animate-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Botón secundario */
+.btn-outline-primary.animate-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+}
+
+/* Hover para botón secundario */
+.btn-outline-primary.animate-btn:hover {
+  background-color: #0056b3;
+
+}

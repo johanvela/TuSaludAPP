@@ -61,7 +61,7 @@ export class RegisterComponent {
       },
     });
   }
-  navigateToHome() :void {
-    this.router.navigate(['/home']);
+  navigateToLogin() :void {
+    this.router.navigate(['/login']);
   }
 }

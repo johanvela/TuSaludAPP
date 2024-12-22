@@ -17,4 +17,37 @@
   button {
     width: 150px;
   }
+  .custom-btn {
+    width: 150px; /* Ajusta el ancho de todos los botones */
+    font-size: 1rem; /* Tamaño uniforme de texto */
+    padding: 10px; /* Espaciado interno */
+    border-radius: 5px; /* Bordes suaves */
+    transition: transform 0.2s ease, background-color 0.3s ease; /* Efecto de transformación */
+  }
+  
+  .custom-btn:hover {
+    transform: scale(1.1); /* Expande ligeramente el botón al pasar el cursor */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Sombra elegante en hover */
+  }
+  
+  .btn-warning {
+    background-color: #ffc107; /* Color amarillo */
+    color: #000; /* Texto negro */
+    border: none; /* Sin bordes */
+  }
+  
+  .btn-warning:hover {
+    background-color: #e0a800; /* Amarillo más oscuro al pasar el cursor */
+  }
+  
+  .card-footer .custom-btn {
+    margin: 0 10px; /* Espaciado uniforme entre botones */
+  }
+  
+  .text-center .custom-btn {
+    margin-top: 10px; /* Espaciado superior para el botón Eliminar Cuenta */
+  }
+  
+  
+  
   

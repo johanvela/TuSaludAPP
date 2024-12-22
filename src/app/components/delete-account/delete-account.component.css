@@ -16,4 +16,38 @@
     background-color: #6c757d;
     border-color: #5a6268;
   }
-  
+
+  /* Botón con animación de expansión */
+.animate-btn {
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Efecto hover */
+.animate-btn:hover {
+  transform: scale(1.05); /* Expansión */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+}
+
+/* Botón "Eliminar Cuenta" */
+.btn-danger.animate-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+}
+
+/* Botón "Eliminar Cuenta" hover */
+.btn-danger.animate-btn:hover {
+  background-color: #b12d3a;
+}
+
+/* Botón "Cancelar" */
+.btn-secondary.animate-btn {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+}
+
+/* Botón "Cancelar" hover */
+.btn-secondary.animate-btn:hover {
+  background-color: #5a6268;
+}

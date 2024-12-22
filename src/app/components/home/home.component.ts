@@ -1,16 +1,18 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent {
+  currentView = 'home';
   constructor(private router: Router) {}
 
   navigateToProfile(): void {
@@ -25,6 +27,10 @@ export class HomeComponent {
   navigateToBmi(){
     this.router.navigate(['/bmi'])
   }
+  navigateToUpdateProfile(): void {
+    this.router.navigate(['/update-profile']);
+  }
+  
   
   logout(): void {
     console.log('Cerrando sesión...');

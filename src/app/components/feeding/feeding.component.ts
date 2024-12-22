@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./feeding.component.css'],
 })
 export class FeedingComponent implements OnInit{
+  currentView = 'feeding';
   planNutricional: any[] = [];
   bmi: number = 0;
   

@@ -64,6 +64,13 @@ export class AuthService {
         headers: { 'Content-Type': 'application/json' },
       });
     }
+
+    updateProfile(user: any): Observable<any> {
+      return this.http.put(`${this.apiUrl}/profile/${user.id}`, user, {
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+    
   
 
   // Cierra sesión (limpia el ID del usuario)

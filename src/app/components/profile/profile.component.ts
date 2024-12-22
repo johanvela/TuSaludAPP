@@ -47,4 +47,7 @@ export class ProfileComponent implements OnInit {
   navigateToDeleteAccount() {
     this.router.navigate(['/delete-account']);
   }
+  navigateToUpdateProfile(): void {
+    this.router.navigate(['/update-profile']);
+  }
 }

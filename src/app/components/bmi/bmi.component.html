@@ -1,52 +1,57 @@
 <div class="container-fluid home-container text-center text-lg-start">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container">
-        <a class="navbar-brand" href="#">
-          <img src="../../../../assets/img/health-logo.png" alt="Salud Logo" width="120">
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-link nav-link-custom" (click)="navigateToHome()" style="cursor: pointer;">
-                Inicio
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link nav-link-custom" (click)="navigateToFeeding()" style="cursor: pointer;">
-                Alimentación
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="btn btn-outline-primary me-2" (click)="navigateToProfile()">
-                Ver Perfil
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="btn btn-primary" (click)="logout()">Cerrar Sesión</a>
-            </li>
-          </ul>
-        </div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <img src="../../../../assets/img/health-logo.png" alt="Salud Logo" width="120">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" [class.active]="currentView === 'home'" [class.disabled]="currentView === 'home'"
+              (click)="navigateToHome()" [attr.disabled]="currentView === 'home' ? true : null">Inicio</a>
+          </li>
+          <!-- Alimentación -->
+          <li class="nav-item">
+            <a class="nav-link" [class.active]="currentView === 'feeding'" [class.disabled]="currentView === 'feeding'"
+              (click)="navigateToFeeding()" [attr.disabled]="currentView === 'feeding' ? true : null">Alimentación</a>
+          </li>
+          <!-- Índice Corporal -->
+          <li class="nav-item">
+            <a class="nav-link" [class.active]="currentView === 'bmi'" [class.disabled]="currentView === 'bmi'"
+              (click)="navigateToBmi()" [attr.disabled]="currentView === 'bmi' ? true : null">Índice Corporal</a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-outline-primary custom-btn me-2" (click)="navigateToProfile()">
+              Ver Perfil
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-primary custom-btn" (click)="logout()">
+              Cerrar Sesión
+            </a>
+          </li>
+        </ul>
       </div>
-    </nav>
-  
-    <div class="container mt-5">
-      <div class="card shadow p-4">
-        <h3 class="text-center text-primary mb-4">Cálculo de Índice de Masa Corporal (IMC)</h3>
-        <div class="card-body">
-          <p><strong>Altura:</strong> {{ userData.talla }} cm</p>
-          <p><strong>Peso:</strong> {{ userData.peso }} kg</p>
-          <p><strong>IMC:</strong> {{ bmi }} (<em>{{ bmiCategory }}</em>)</p>
-          <p><strong>Recomendación:</strong> {{ recommendation }}</p>
-          <p>
-            <strong>Resultado:</strong> 
-            <span [ngStyle]="{'color': getResultColor()}">{{ weightGoal }}</span>
-          </p>
-        </div>
+    </div>
+  </nav>
+
+  <div class="container mt-5">
+    <div class="card shadow p-4">
+      <h3 class="text-center text-primary mb-4">Cálculo de Índice de Masa Corporal (IMC)</h3>
+      <div class="card-body">
+        <p><strong>Altura:</strong> {{ userData.talla }} cm</p>
+        <p><strong>Peso:</strong> {{ userData.peso }} kg</p>
+        <p><strong>IMC:</strong> {{ bmi }} (<em>{{ bmiCategory }}</em>)</p>
+        <p><strong>Recomendación:</strong> {{ recommendation }}</p>
+        <p>
+          <strong>Resultado:</strong>
+          <span [ngStyle]="{'color': getResultColor()}">{{ weightGoal }}</span>
+        </p>
       </div>
     </div>
   </div>
-  
+</div>

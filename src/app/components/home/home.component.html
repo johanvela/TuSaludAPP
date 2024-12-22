@@ -11,21 +11,31 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link nav-link-custom" (click)="navigateToFeeding()" style="cursor: pointer;">
-                            Alimentación
-                        </a>
+                        <a class="nav-link" [class.active]="currentView === 'home'"
+                            [class.disabled]="currentView === 'home'" (click)="navigateToHome()"
+                            [attr.disabled]="currentView === 'home' ? true : null">Inicio</a>
+                    </li>
+                    <!-- Alimentación -->
+                    <li class="nav-item">
+                        <a class="nav-link" [class.active]="currentView === 'feeding'"
+                            [class.disabled]="currentView === 'feeding'" (click)="navigateToFeeding()"
+                            [attr.disabled]="currentView === 'feeding' ? true : null">Alimentación</a>
+                    </li>
+                    <!-- Índice Corporal -->
+                    <li class="nav-item">
+                        <a class="nav-link" [class.active]="currentView === 'bmi'"
+                            [class.disabled]="currentView === 'bmi'" (click)="navigateToBmi()"
+                            [attr.disabled]="currentView === 'bmi' ? true : null">Índice Corporal</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-link-custom" (click)="navigateToBmi()" style="cursor: pointer;">
-                            Índice Corporal
-                        </a>                    </li>
-                    <li class="nav-item">
-                        <a class="btn btn-outline-primary me-2" (click)="navigateToProfile()">
+                        <a class="btn btn-outline-primary custom-btn me-2" (click)="navigateToProfile()">
                             Ver Perfil
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-primary" (click)="logout()">Cerrar Sesión</a>
+                        <a class="btn btn-primary custom-btn" (click)="logout()">
+                            Cerrar Sesión
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -42,8 +52,14 @@
                 </p>
             </div>
             <div class="col-lg-6 text-center">
-                <img src="../../../../assets/img/imagen1.jpg" alt="Salud Hero Image" class="img-fluid">
+                <img src="../../../../assets/img/imagen1.png" alt="Salud Hero Image" class="img-fluid">
             </div>
         </div>
     </div>
+    <div class="text-center mt-4">
+        <a class="btn btn-success custom-btn mt-3" (click)="navigateToUpdateProfile()">
+            Rellenar Datos Faltantes
+        </a>
+    </div>
+
 </div>

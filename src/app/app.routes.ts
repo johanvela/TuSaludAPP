@@ -5,6 +5,7 @@ import { HomeComponent } from './components/home/home.component';
 import { ProfileComponent } from './components/profile/profile.component'; 
 import { FeedingComponent } from './components/feeding/feeding.component';
 import { BMIComponent } from './components/bmi/bmi.component';
+import { UpdateProfileComponent } from './components/update-profile/update-profile.component';
 import { DeleteAccountComponent } from './components/delete-account/delete-account.component';
 
 
@@ -17,6 +18,7 @@ export const routes: Routes = [
   { path: 'feeding', component: FeedingComponent },
   { path: 'profile', component: ProfileComponent }, 
   { path: 'profile', component: ProfileComponent },
+  { path: 'update-profile', component: UpdateProfileComponent },
   { path: 'delete-account', component: DeleteAccountComponent },
   { path: '**', redirectTo: 'login' }, 
 ];

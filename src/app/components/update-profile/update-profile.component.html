@@ -1,0 +1,70 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card shadow">
+          <div class="card-header bg-primary text-white text-center">
+            <h3>Actualizar Perfil</h3>
+          </div>
+          <div class="card-body">
+            <form (ngSubmit)="onUpdateProfile()">
+              <div class="form-group mb-3">
+                <label for="edad">Edad</label>
+                <input
+                  type="number"
+                  id="edad"
+                  [(ngModel)]="user.edad"
+                  name="edad"
+                  class="form-control"
+                  placeholder="Ingresa tu edad"
+                  required
+                />
+              </div>
+              <div class="form-group mb-3">
+                <label for="peso">Peso (kg)</label>
+                <input
+                  type="number"
+                  id="peso"
+                  [(ngModel)]="user.peso"
+                  name="peso"
+                  class="form-control"
+                  placeholder="Ingresa tu peso"
+                  required
+                />
+              </div>
+              <div class="form-group mb-3">
+                <label for="altura">Altura (cm)</label>
+                <input
+                  type="number"
+                  id="altura"
+                  [(ngModel)]="user.altura"
+                  name="altura"
+                  class="form-control"
+                  placeholder="Ingresa tu altura"
+                  required
+                />
+              </div>
+              <div class="form-group mb-3">
+                <label for="sexo">Sexo</label>
+                <select
+                  id="sexo"
+                  [(ngModel)]="user.sexo"
+                  name="sexo"
+                  class="form-control"
+                  required
+                >
+                  <option value="" disabled>Selecciona tu sexo</option>
+                  <option value="Masculino">Masculino</option>
+                  <option value="Femenino">Femenino</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-primary w-100 animate-btn mb-3">Guardar Cambios</button>
+            </form>
+          </div>
+          <div class="card-footer text-center">
+            <button class="btn btn-secondary w-100 animate-btn" (click)="navigateToProfile()">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -12,12 +12,11 @@
         <input type="password" id="contrasena" [(ngModel)]="credentials.contrasena" name="contrasena"
           class="form-control" placeholder="Ingresa tu contraseña" required />
       </div>
-      <button type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
+      <button type="submit" class="btn btn-primary w-100 animate-btn mb-3">Iniciar Sesión</button>
     </form>
     <div class="text-center mt-3">
-      <button type="button" class="btn btn-outline-dark w-100" (click)="navigateToRegister()">
-        Regístrate
-      </button>
+      <button class="btn btn-outline-primary w-100 animate-btn" (click)="navigateToRegister()">Regístrate</button>
+
     </div>
   </div>
 </div>
