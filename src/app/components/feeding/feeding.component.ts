@@ -54,6 +54,11 @@ export class FeedingComponent implements OnInit{
     navigateToBmi(){
       this.router.navigate(['/bmi'])
     }
+
+    navigateToFeeding(): void {
+      this.router.navigate(['/feeding']);
+    }
+
     logout(): void {
       console.log('Cerrando sesión...');
       sessionStorage.clear(); // Limpia los datos de la sesión.

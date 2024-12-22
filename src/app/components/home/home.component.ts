@@ -20,6 +20,10 @@ export class HomeComponent {
     this.router.navigate(['/profile']);
   }
 
+  navigateToHome(): void {
+    this.router.navigate(['/home']);
+  }
+
   navigateToFeeding(){
     this.router.navigate(['/feeding'])
   }

@@ -80,6 +80,9 @@ export class BMIComponent implements OnInit {
     navigateToFeeding(){
       this.router.navigate(['/feeding'])
     }
+    navigateToBmi(): void {
+      this.router.navigate(['/bmi']);
+    }
 
     logout(): void {
       console.log('Cerrando sesión...');
