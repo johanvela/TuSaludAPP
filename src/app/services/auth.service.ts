@@ -34,9 +34,11 @@ export class AuthService {
   }
 
   // Obtiene el perfil del usuario desde el backend
-  getProfile(userId: number): Observable<any> { // <-- Usa el ID para llamar a /profile/:id
+  getProfile(userId: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/profile/${userId}`);
   }
+  
+  
 
   // Registro de usuario
   register(credentials: {
@@ -65,11 +67,14 @@ export class AuthService {
       });
     }
 
+    //Actualizar perfil
     updateProfile(user: any): Observable<any> {
-      return this.http.put(`${this.apiUrl}/profile/${user.id}`, user, {
-        headers: { 'Content-Type': 'application/json' },
+      return this.http.post(`${this.apiUrl}/update-profile`, user, {
+          headers: { 'Content-Type': 'application/json' },
       });
-    }
+  }
+  
+    
     
   
 

@@ -23,11 +23,12 @@ export class ProfileComponent implements OnInit {
       return;
     }
 
+    
+
     // Llamar al servicio para obtener el perfil
     this.authService.getProfile(userId).subscribe({
       next: (response) => {
-        console.log('Datos del perfil recibidos:', response);
-        this.user = response.usuario; // Acceder específicamente a "usuario"
+        this.user = response.usuario;
       },
       error: (err) => {
         console.error('Error al cargar el perfil:', err);
