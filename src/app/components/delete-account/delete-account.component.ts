@@ -15,9 +15,18 @@ export class DeleteAccountComponent {
   reason: string = '';
   password: string = '';
   confirmPassword: string = '';
+  showPassword: boolean = false;
+  showConfirmPassword: boolean = false;
 
   constructor(private authService: AuthService, private router: Router) {}
 
+  togglePasswordVisibility(field: string): void {
+    if (field === 'password') {
+      this.showPassword = !this.showPassword;
+    } else if (field === 'confirmPassword') {
+      this.showConfirmPassword = !this.showConfirmPassword;
+    }
+  }
   onDeleteAccount(): void {
     if (!this.reason || !this.password || !this.confirmPassword) {
       alert('Por favor, completa todos los campos.');

@@ -51,3 +51,18 @@
   background-color: #0056b3;
 
 }
+
+.btn-gray {
+  background-color: #f0f0f0; /* Fondo gris claro */
+  color: #333; /* Texto oscuro */
+  border: 1px solid #ccc; /* Borde gris */
+  padding: 0.375rem 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-gray:hover {
+  background-color: #e0e0e0; /* Fondo más oscuro al pasar el mouse */
+  border-color: #bbb; /* Borde más oscuro */
+}

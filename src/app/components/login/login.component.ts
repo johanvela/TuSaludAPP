@@ -15,9 +15,13 @@ import { LoginResponse } from '../../models/user.model';
 })
 export class LoginComponent {
   credentials: Credentials = { correo: '', contrasena: '' };
+  showPassword: boolean = false; // Variable para controlar la visibilidad de la contraseña
 
   constructor(private authService: AuthService, private router: Router) {}
 
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword; // Alterna la visibilidad de la contraseña
+  }
   onSubmit() {
     console.log('Enviando credenciales:', this.credentials);
 

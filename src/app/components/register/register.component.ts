@@ -19,25 +19,29 @@ export class RegisterComponent {
     dni: '',
     contrasena: ''
   };
+  showPassword = false; // Control para mostrar/ocultar la contraseña
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) { }
 
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
   onSubmit(): void {
     if (!this.credentials.nombres || this.credentials.nombres.length < 4) {
       alert('El nombre debe tener al menos 4 letras.');
       return;
     }
-  
+
     if (!this.credentials.correo || !/^\S+@\S+\.\S+$/.test(this.credentials.correo)) {
       alert('Por favor, ingresa un correo válido.');
       return;
     }
-  
+
     if (!this.credentials.dni || !/^\d{8}$/.test(this.credentials.dni)) {
       alert('El DNI debe tener exactamente 8 dígitos.');
       return;
     }
-  
+
     if (
       !this.credentials.contrasena ||
       !/^(?=.*[A-Z])(?=.*[0-9]).{8,}$/.test(this.credentials.contrasena)
@@ -45,9 +49,9 @@ export class RegisterComponent {
       alert('La contraseña debe tener al menos 8 caracteres, una mayúscula y un número.');
       return;
     }
-  
+
     console.log('Datos de registro enviados:', this.credentials);
-  
+
     // Consumir el servicio AuthService para registrar
     this.authService.register(this.credentials).subscribe({
       next: (response: LoginResponse) => {
@@ -61,7 +65,7 @@ export class RegisterComponent {
       },
     });
   }
-  navigateToLogin() :void {
+  navigateToLogin(): void {
     this.router.navigate(['/login']);
   }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedService } from '../../services/shared.service';
+import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,82 +12,107 @@ import { Router } from '@angular/router';
   styleUrls: ['./bmi.component.css'],
 })
 export class BMIComponent implements OnInit {
-  userData = {
-    talla: 180, // en cm
-    peso: 80, // en kg
-    edad: 40,
-  };
-
+  userData: any = {};
   bmi: number = 0;
   bmiCategory: string = '';
   recommendation: string = '';
   weightGoal: string = '';
 
-  constructor(private sharedService: SharedService, private router: Router) {}
+  constructor(
+    private sharedService: SharedService,
+    private router: Router,
+    private authService: AuthService
+  ) {}
+
   currentView = 'bmi';
+
   ngOnInit(): void {
-    this.calculateBMI();
+    const userId = this.authService.getUserId();
+
+    if (!userId) {
+      alert('Usuario no autenticado. Por favor, inicia sesión.');
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    this.authService.getBMI(userId).subscribe({
+      next: (response) => {
+        console.log('Datos del backend:', response); // Verifica los datos
+        if (response && response.bmiDetails) {
+          this.userData = response.bmiDetails; // Datos del usuario
+          this.bmi = this.userData.bmi; // IMC calculado en el backend
+          this.setBMICategory(); // Define la categoría y recomendaciones
+        } else {
+          alert('No se pudieron cargar los datos dinámicos.');
+          this.router.navigate(['/profile']);
+        }
+      },
+      error: (err) => {
+        console.error('Error al obtener los datos del BMI:', err);
+        alert('Hubo un problema al cargar la información. Por favor, intente más tarde.');
+        this.router.navigate(['/profile']);
+      },
+    });
   }
 
-  calculateBMI(): void {
-    const alturaEnMetros = this.userData.talla / 100;
-    this.bmi = parseFloat((this.userData.peso / (alturaEnMetros ** 2)).toFixed(2));
-
-      // Guardar el BMI en el servicio compartido
-      this.sharedService.setBmi(this.bmi);
-
-    // Categoría basada en el IMC
+  setBMICategory(): void {
     if (this.bmi < 18.5) {
       this.bmiCategory = 'Bajo Peso';
-      this.recommendation =
-        'Es importante ganar peso. Considere una dieta rica en proteínas y carbohidratos saludables.';
-      this.weightGoal = 'Usted debe ganar peso para alcanzar un rango saludable.';
+      this.recommendation = 'Es importante ganar peso.';
+      this.weightGoal = 'Debe ganar peso.';
     } else if (this.bmi < 24.9) {
       this.bmiCategory = 'Normal';
-      this.recommendation =
-        'Manténgase en forma con una dieta equilibrada y ejercicios regulares.';
-      this.weightGoal = 'Usted se encuentra en un rango saludable.';
+      this.recommendation = 'Manténgase en forma.';
+      this.weightGoal = 'Está en un rango saludable.';
     } else if (this.bmi < 29.9) {
       this.bmiCategory = 'Sobrepeso';
-      this.recommendation =
-        'Considere reducir el consumo de calorías y realizar ejercicios aeróbicos.';
-      this.weightGoal = 'Usted debe bajar de peso para alcanzar un rango saludable.';
+      this.recommendation = 'Reduzca calorías.';
+      this.weightGoal = 'Debe bajar de peso.';
     } else {
       this.bmiCategory = 'Obesidad';
-      this.recommendation =
-        'Es fundamental trabajar para reducir peso. Consulte a un profesional de salud.';
-      this.weightGoal = 'Usted debe bajar de peso para reducir riesgos a su salud.';
+      this.recommendation = 'Trabaje para reducir peso.';
+      this.weightGoal = 'Debe bajar de peso.';
     }
   }
 
-  // Cambiar color según el resultado
   getResultColor(): string {
-    if (this.bmiCategory === 'Bajo Peso') return '#FFA500'; // Naranja
-    if (this.bmiCategory === 'Normal') return '#28A745'; // Verde
-    if (this.bmiCategory === 'Sobrepeso') return '#FFC107'; // Amarillo
-    if (this.bmiCategory === 'Obesidad') return '#DC3545'; // Rojo
-    return '#000'; // Negro por defecto
+    switch (this.bmiCategory) {
+      case 'Bajo Peso':
+        return '#FFA500'; // Naranja
+      case 'Normal':
+        return '#28A745'; // Verde
+      case 'Sobrepeso':
+        return '#FFC107'; // Amarillo
+      case 'Obesidad':
+        return '#DC3545'; // Rojo
+      default:
+        return '#000'; // Negro por defecto
+    }
   }
 
-    navigateToProfile(): void {
-      console.log('Navegando a /profile...');
-      this.router.navigate(['/profile']);
-    }
+  navigateToProfile(): void {
+    console.log('Navegando a /profile...');
+    this.router.navigate(['/profile']);
+  }
 
-    navigateToHome(){
-      this.router.navigate(['/home'])
-    }
+  navigateToHome(): void {
+    console.log('Navegando a /home...');
+    this.router.navigate(['/home']);
+  }
 
-    navigateToFeeding(){
-      this.router.navigate(['/feeding'])
-    }
-    navigateToBmi(): void {
-      this.router.navigate(['/bmi']);
-    }
+  navigateToFeeding(): void {
+    console.log('Navegando a /feeding...');
+    this.router.navigate(['/feeding']);
+  }
 
-    logout(): void {
-      console.log('Cerrando sesión...');
-      sessionStorage.clear(); // Limpia los datos de la sesión.
-      this.router.navigate(['/login']); // Redirige a la página de inicio de sesión.
-    }
+  navigateToBmi(): void {
+    console.log('Navegando a /bmi...');
+    this.router.navigate(['/bmi']);
+  }
+
+  logout(): void {
+    console.log('Cerrando sesión...');
+    sessionStorage.clear(); // Limpia los datos de la sesión
+    this.router.navigate(['/login']); // Redirige a la página de inicio de sesión
+  }
 }

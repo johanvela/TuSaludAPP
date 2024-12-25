@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators'; // Asegúrate de importar tap
 import { Credentials } from '../models/credentials.model';
 import { LoginResponse } from '../models/user.model';
 
@@ -9,27 +10,30 @@ import { LoginResponse } from '../models/user.model';
 })
 export class AuthService {
   private apiUrl = 'http://localhost:3001';
-  private userId: number | null = null; // <-- Variable para almacenar temporalmente el ID del usuario
+  private userId: number | null = null; // Variable para almacenar temporalmente el ID del usuario
 
-
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   // Login: Envía credenciales y recibe respuesta del backend
   login(credentials: Credentials): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${this.apiUrl}/login`, credentials, {
       headers: { 'Content-Type': 'application/json' },
-    });
+    }).pipe(
+      tap((response: LoginResponse) => {
+        if (response.usuario && response.usuario.id) {
+          this.setUserId(response.usuario.id); // Guarda el ID del usuario al iniciar sesión
+        }
+      })
+    );
   }
-  
 
   // Guarda el ID del usuario después del login
-  setUserId(id: number) { // <-- Guarda temporalmente el ID
+  setUserId(id: number): void {
     this.userId = id;
   }
 
   // Obtiene el ID del usuario guardado
-  getUserId(): number | null { // <-- Recupera el ID temporal
+  getUserId(): number | null {
     return this.userId;
   }
 
@@ -37,8 +41,10 @@ export class AuthService {
   getProfile(userId: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/profile/${userId}`);
   }
-  
-  
+
+  getBMI(userId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/bmi/${userId}`);
+  }
 
   // Registro de usuario
   register(credentials: {
@@ -60,27 +66,22 @@ export class AuthService {
     });
   }
 
-    // Obtener el plan nutricional basado en el IMC del usuario
-    getNutritionPlan(bmi: number): Observable<any> {
-      return this.http.post<any>(`${this.apiUrl}/get-nutrition-plan`, { bmi }, {
-        headers: { 'Content-Type': 'application/json' },
-      });
-    }
-
-    //Actualizar perfil
-    updateProfile(user: any): Observable<any> {
-      return this.http.post(`${this.apiUrl}/update-profile`, user, {
-          headers: { 'Content-Type': 'application/json' },
-      });
+  // Obtener el plan nutricional basado en el IMC del usuario
+  getNutritionPlan(bmi: number): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/get-nutrition-plan`, { bmi }, {
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
-  
-    
-    
-  
+
+  // Actualizar perfil
+  updateProfile(user: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/update-profile`, user, {
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
 
   // Cierra sesión (limpia el ID del usuario)
-  logout() { 
-    this.userId = null; // <-- Limpia el ID temporal
+  logout(): void {
+    this.userId = null; // Limpia el ID temporal
   }
 }
-

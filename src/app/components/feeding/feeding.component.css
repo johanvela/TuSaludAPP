@@ -66,3 +66,25 @@
   cursor: pointer;
 }
 
+.user-info {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: rgba(255, 255, 255, 0.9); /* Fondo translúcido */
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  font-size: 1rem;
+  color: #333;
+}
+
+.user-info strong {
+  font-size: 1.2rem;
+  color: #007bff; /* Color azul para el nombre */
+}
+
+.user-info span {
+  font-weight: bold;
+}
+

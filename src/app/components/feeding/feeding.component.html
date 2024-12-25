@@ -2,7 +2,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
             <a class="navbar-brand" href="#">
-                <img src="../../../../assets/img/health-logo.png" alt="Salud Logo" width="120">
+                <img src="../../../../assets/img/health-logo.png" alt="Salud Logo" width="200">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,6 +48,15 @@
         <p class="text-center text-muted mb-4">
             Un plan diseñado para mejorar tu salud y bienestar.
         </p>
+          <!-- Mensaje con el nombre del usuario y su IMC -->
+          <div class="user-info bg-light p-3 rounded shadow">
+            <p>
+                <strong>Hola {{ userName }}</strong>, tu IMC es 
+                <span [ngStyle]="{'color': getResultColor()}">{{ bmi.toFixed(2) }}</span> 
+                (<em>{{ bmiCategory }}</em>).
+            </p>
+        </div>
+        
 
         <!-- Tabla de alimentación -->
         <div class="table-responsive">
