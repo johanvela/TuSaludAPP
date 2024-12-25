@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { SharedService } from '../../services/shared.service';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
+import { jsPDF } from 'jspdf';
+import autoTable from 'jspdf-autotable';
 
 @Component({
   selector: 'app-feeding',
@@ -101,12 +103,63 @@ export class FeedingComponent implements OnInit {
     }
   }
 
+  exportToPDF(): void {
+    const doc = new jsPDF();
+  
+    // Ruta de la imagen
+    const imgPath = 'assets/img/health-logo.png';
+  
+    // Coordenadas y dimensiones de la imagen
+    const imgX = 140; // Ajustar posición X para que coincida con el cuadro rojo
+    const imgY = 20;  // Ajustar posición Y para que coincida con el cuadro rojo
+    const imgWidth = 60; // Ancho de la imagen
+    const imgHeight = 40; // Alto de la imagen
+  
+    // Cargar la imagen antes de agregarla
+    const img = new Image();
+    img.src = imgPath;
+  
+    img.onload = () => {
+      // Agregar la imagen al PDF
+      doc.addImage(img, 'PNG', imgX, imgY, imgWidth, imgHeight);
+  
+      // Agregar contenido del PDF (título, texto, tabla)
+      doc.setFontSize(14);
+      doc.text('Plan de Alimentación Semanal', 10, 10);
+      doc.text(`Usuario: ${this.userName}`, 10, 20);
+      doc.text(`IMC: ${this.bmi.toFixed(2)} (${this.bmiCategory})`, 10, 30);
+  
+      // Agregar la tabla
+      autoTable(doc, {
+        head: [['Día', 'Desayuno', 'Almuerzo', 'Cena']],
+        body: this.planNutricional.map(plan => [
+          plan.dia,
+          plan.desayuno,
+          plan.almuerzo,
+          plan.cena,
+        ]),
+        startY: 50, // Posición donde comienza la tabla
+        styles: {
+          halign: 'center', // Centrar texto
+        },
+        headStyles: {
+          fillColor: [41, 128, 185], // Color de fondo del encabezado
+          textColor: [255, 255, 255], // Color del texto del encabezado
+        },
+      });
+  
+      // Descargar el PDF
+      doc.save('plan-de-alimentacion.pdf');
+    };
+  }
+  
+
   navigateToProfile(): void {
     console.log('Navegando a /profile...');
     this.router.navigate(['/profile']);
   }
 
-  navigateToHome() {
+  navigateToHome(): void {
     this.router.navigate(['/home']);
   }
 
@@ -124,4 +177,3 @@ export class FeedingComponent implements OnInit {
     this.router.navigate(['/login']); // Redirige a la página de inicio de sesión.
   }
 }
-

@@ -48,15 +48,22 @@
         <p class="text-center text-muted mb-4">
             Un plan diseñado para mejorar tu salud y bienestar.
         </p>
-          <!-- Mensaje con el nombre del usuario y su IMC -->
-          <div class="user-info bg-light p-3 rounded shadow">
+        <!-- Mensaje con el nombre del usuario y su IMC -->
+        <div class="user-info bg-light p-3 rounded shadow">
             <p>
-                <strong>Hola {{ userName }}</strong>, tu IMC es 
-                <span [ngStyle]="{'color': getResultColor()}">{{ bmi.toFixed(2) }}</span> 
+                <strong>Hola {{ userName }}</strong>, tu IMC es
+                <span [ngStyle]="{'color': getResultColor()}">{{ bmi.toFixed(2) }}</span>
                 (<em>{{ bmiCategory }}</em>).
             </p>
         </div>
-        
+
+        <!-- Botón para exportar -->
+        <div class="text-end mb-3">
+            <button class="btn btn-export" (click)="exportToPDF()">
+                Exportar a PDF
+            </button>
+        </div>
+
 
         <!-- Tabla de alimentación -->
         <div class="table-responsive">
@@ -78,7 +85,8 @@
                     </tr>
                     <!-- Mensaje para datos vacíos -->
                     <tr *ngIf="!planNutricional.length">
-                        <td colspan="4" class="text-muted">No hay datos disponibles. Por favor, intente más tarde o ingrese a la pestaña de índice corporal.</td>
+                        <td colspan="4" class="text-muted">No hay datos disponibles. Por favor, intente más tarde o
+                            ingrese a la pestaña de índice corporal.</td>
                     </tr>
                 </tbody>
             </table>

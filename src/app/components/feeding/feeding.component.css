@@ -88,3 +88,13 @@
   font-weight: bold;
 }
 
+.btn-export {
+  background-color: #21c023;
+  color: #fff;
+  border: none;
+}
+
+.btn-export:hover {
+  background-color: #149217;
+  color: #fff;
+}
