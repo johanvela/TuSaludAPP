@@ -1,31 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SharedService } from '../../services/shared.service';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
 
+
 @Component({
-  selector: 'app-feeding',
+  selector: 'app-exercise',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './feeding.component.html',
-  styleUrls: ['./feeding.component.css'],
+  templateUrl: './exercise.component.html',
+  styleUrls: ['./exercise.component.css'],
 })
-export class FeedingComponent implements OnInit {
-  currentView = 'feeding';
-  planNutricional: any[] = [];
+export class ExerciseComponent implements OnInit {
   bmi: number = 0;
   bmiCategory: string = '';
+  exerciseRoutines: any[] = [];
+  
+
+  constructor(private authService: AuthService, private router: Router) {}
+
+  currentView = 'exercise';
   userName: string = '';
-
-  constructor(
-    private sharedService: SharedService,
-    private authService: AuthService,
-    private router: Router
-  ) {}
-
   ngOnInit(): void {
     const userId = this.authService.getUserId();
 
@@ -35,26 +32,13 @@ export class FeedingComponent implements OnInit {
       return;
     }
 
-    // Obtener el perfil del usuario
-    this.authService.getProfile(userId).subscribe({
-      next: (response) => {
-        if (response.usuario) {
-          this.userName = response.usuario.nombres; // Obtén el nombre del usuario
-          console.log('Nombre del usuario:', this.userName);
-        }
-      },
-      error: (err) => {
-        console.error('Error al obtener el perfil del usuario:', err);
-      },
-    });
-
     // Obtener el BMI del usuario
     this.authService.getBMI(userId).subscribe({
       next: (response) => {
         if (response.bmiDetails) {
           this.bmi = response.bmiDetails.bmi;
-          this.setBMICategory(); // Determinar categoría según el BMI
-          this.fetchNutritionPlan(); // Actualiza la tabla de alimentación
+          this.setBMICategory(); // Determinar categoría del IMC
+          this.fetchExerciseRoutines(); // Cargar rutinas de ejercicio
         }
       },
       error: (err) => {
@@ -64,18 +48,23 @@ export class FeedingComponent implements OnInit {
     });
   }
 
-  fetchNutritionPlan(): void {
-    this.authService.getNutritionPlan(this.bmi).subscribe({
-      next: (response: any) => {
-        this.planNutricional = response.plan;
-        console.log('Plan nutricional recibido:', this.planNutricional);
+  fetchExerciseRoutines(): void {
+    if (!this.bmiCategory) {
+      console.error('Categoría de IMC no definida.');
+      return;
+    }
+    
+    this.authService.getExerciseRoutines(this.bmiCategory).subscribe({
+      next: (response) => {
+        this.exerciseRoutines = response.routines; // Almacenar rutinas
       },
-      error: (error) => {
-        console.error('Error al obtener el plan nutricional:', error);
+      error: (err) => {
+        console.error('Error al obtener las rutinas de ejercicio:', err);
+        alert('No se pudieron cargar las rutinas de ejercicio.');
+        this.exerciseRoutines = []; // Limpiar rutinas si ocurre un error
       },
     });
   }
-
   setBMICategory(): void {
     if (this.bmi < 18.5) {
       this.bmiCategory = 'Bajo Peso';
@@ -85,21 +74,6 @@ export class FeedingComponent implements OnInit {
       this.bmiCategory = 'Sobrepeso';
     } else {
       this.bmiCategory = 'Obesidad';
-    }
-  }
-
-  getResultColor(): string {
-    switch (this.bmiCategory) {
-      case 'Bajo Peso':
-        return '#FFA500'; // Naranja
-      case 'Normal':
-        return '#28A745'; // Verde
-      case 'Sobrepeso':
-        return '#FFC107'; // Amarillo
-      case 'Obesidad':
-        return '#DC3545'; // Rojo
-      default:
-        return '#000'; // Negro por defecto
     }
   }
 
@@ -125,18 +99,17 @@ export class FeedingComponent implements OnInit {
   
       // Agregar contenido del PDF (título, texto, tabla)
       doc.setFontSize(14);
-      doc.text('Plan de Alimentación Semanal', 10, 10);
+      doc.text('Rutinas de Ejercicio', 10, 10);
       doc.text(`Usuario: ${this.userName}`, 10, 20);
       doc.text(`IMC: ${this.bmi.toFixed(2)} (${this.bmiCategory})`, 10, 30);
   
       // Agregar la tabla
       autoTable(doc, {
-        head: [['Día', 'Desayuno', 'Almuerzo', 'Cena']],
-        body: this.planNutricional.map(plan => [
-          plan.dia,
-          plan.desayuno,
-          plan.almuerzo,
-          plan.cena,
+        head: [['Ejercicio', 'Duración', 'Frecuencia']],
+        body: this.exerciseRoutines.map(routine => [
+          routine.ejercicio,
+          routine.duracion,
+          routine.frecuencia,
         ]),
         startY: 50, // Posición donde comienza la tabla
         styles: {
@@ -149,33 +122,54 @@ export class FeedingComponent implements OnInit {
       });
   
       // Descargar el PDF
-      doc.save('plan-de-alimentacion.pdf');
+      doc.save('rutinas-de-ejercicio.pdf');
     };
   }
   
+
+  
+
+  getResultColor(): string {
+    switch (this.bmiCategory) {
+      case 'Bajo Peso':
+        return '#FFA500'; // Naranja
+      case 'Normal':
+        return '#28A745'; // Verde
+      case 'Sobrepeso':
+        return '#FFC107'; // Amarillo
+      case 'Obesidad':
+        return '#DC3545'; // Rojo
+      default:
+        return '#000'; // Negro por defecto
+    }
+  }
+
+  
+  navigateToHome(): void {
+    this.router.navigate(['/home']);
+  }
+
+  navigateToFeeding(){
+    this.router.navigate(['/feeding'])
+  }
+
+  navigateToBmi(){
+    this.router.navigate(['/bmi'])
+  }
+  navigateToUpdateProfile(): void {
+    this.router.navigate(['/update-profile']);
+  }
+  
+  navigateToExercise(): void {
+    this.router.navigate(['/exercise']);
+  }
 
   navigateToProfile(): void {
     console.log('Navegando a /profile...');
     this.router.navigate(['/profile']);
   }
 
-  navigateToHome(): void {
-    this.router.navigate(['/home']);
-  }
-
-  navigateToFeeding(): void {
-    this.router.navigate(['/feeding']);
-  }
-
-  navigateToBmi(): void {
-    this.router.navigate(['/bmi']);
-  }
-
-  navigateToExercise(): void {
-    this.router.navigate(['/exercise']);
-  }
   
-
   logout(): void {
     console.log('Cerrando sesión...');
     sessionStorage.clear(); // Limpia los datos de la sesión.

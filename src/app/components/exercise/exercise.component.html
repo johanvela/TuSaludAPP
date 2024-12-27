@@ -1,0 +1,88 @@
+<div class="container-fluid home-container text-center text-lg-start">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="../../../../assets/img/health-logo.png" alt="Salud Logo" width="150">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" [class.active]="currentView === 'home'"
+                            (click)="navigateToHome()">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" [class.active]="currentView === 'bmi'"
+                            (click)="navigateToBmi()">Índice Corporal</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" [class.active]="currentView === 'feeding'"
+                            (click)="navigateToFeeding()">Alimentación</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" [class.active]="currentView === 'exercise'"
+                            (click)="navigateToExercise()">Rutina de ejercicios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-outline-primary custom-btn me-2" (click)="navigateToProfile()">Ver Perfil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-primary custom-btn" (click)="logout()">Cerrar Sesión</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+
+    <div class="container mt-5">
+        <h1 class="text-center text-success mb-4">Rutinas de Ejercicio</h1>
+        <p class="text-center text-muted mb-4">
+            Rutinas recomendadas para tu salud según tu IMC.
+        </p>
+
+        <!-- Mostrar el IMC del usuario -->
+                <!-- Recuadro de IMC -->
+                <div class="user-info bg-light p-3 rounded shadow">
+                    <strong>Tu IMC:</strong>
+                    <span [ngStyle]="{'color': getResultColor()}">{{ bmi.toFixed(2) }}</span>
+                    (<em>{{ bmiCategory }}</em>)
+                </div>
+
+                        <!-- Botón para exportar -->
+        <div class="text-end mb-3">
+            <button class="btn btn-export" (click)="exportToPDF()">
+                Exportar a PDF
+            </button>
+        </div>
+
+
+
+        <!-- Tabla de rutinas -->
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover text-center">
+                <thead class="bg-success text-white">
+                    <tr>
+                        <th>Ejercicio</th>
+                        <th>Duración</th>
+                        <th>Frecuencia</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let routine of exerciseRoutines; let i = index" [class.table-success]="i % 2 === 0">
+                        <td>{{ routine.ejercicio }}</td>
+                        <td>{{ routine.duracion }}</td>
+                        <td>{{ routine.frecuencia }}</td>
+                    </tr>
+                    <!-- Mensaje si no hay datos -->
+                    <tr *ngIf="exerciseRoutines.length === 0">
+                        <td colspan="3" class="text-muted">No hay rutinas disponibles para tu categoría de IMC.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+    </div>

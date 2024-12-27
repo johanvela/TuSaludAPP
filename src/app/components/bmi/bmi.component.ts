@@ -110,6 +110,11 @@ export class BMIComponent implements OnInit {
     this.router.navigate(['/bmi']);
   }
 
+  navigateToExercise(): void {
+    this.router.navigate(['/exercise']);
+  }
+  
+
   logout(): void {
     console.log('Cerrando sesión...');
     sessionStorage.clear(); // Limpia los datos de la sesión

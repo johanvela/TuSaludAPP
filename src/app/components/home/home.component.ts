@@ -35,6 +35,10 @@ export class HomeComponent {
     this.router.navigate(['/update-profile']);
   }
   
+  navigateToExercise(): void {
+    this.router.navigate(['/exercise']);
+  }
+  
   
   logout(): void {
     console.log('Cerrando sesión...');

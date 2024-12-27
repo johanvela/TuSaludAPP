@@ -14,16 +14,23 @@
             <a class="nav-link" [class.active]="currentView === 'home'" [class.disabled]="currentView === 'home'"
               (click)="navigateToHome()" [attr.disabled]="currentView === 'home' ? true : null">Inicio</a>
           </li>
-          <!-- Alimentación -->
-          <li class="nav-item">
-            <a class="nav-link" [class.active]="currentView === 'feeding'" [class.disabled]="currentView === 'feeding'"
-              (click)="navigateToFeeding()" [attr.disabled]="currentView === 'feeding' ? true : null">Alimentación</a>
-          </li>
           <!-- Índice Corporal -->
           <li class="nav-item">
             <a class="nav-link" [class.active]="currentView === 'bmi'" [class.disabled]="currentView === 'bmi'"
               (click)="navigateToBmi()" [attr.disabled]="currentView === 'bmi' ? true : null">Índice Corporal</a>
           </li>
+          <!-- Alimentación -->
+          <li class="nav-item">
+            <a class="nav-link" [class.active]="currentView === 'feeding'" [class.disabled]="currentView === 'feeding'"
+              (click)="navigateToFeeding()" [attr.disabled]="currentView === 'feeding' ? true : null">Alimentación</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" [class.active]="currentView === 'exercise'"
+              [class.disabled]="currentView === 'exercise'" (click)="navigateToExercise()"
+              [attr.disabled]="currentView === 'exercise' ? true : null">Rutina de ejercicios</a>
+          </li>
+
           <li class="nav-item">
             <a class="btn btn-outline-primary custom-btn me-2" (click)="navigateToProfile()">
               Ver Perfil

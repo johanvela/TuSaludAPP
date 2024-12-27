@@ -72,6 +72,13 @@ export class AuthService {
       headers: { 'Content-Type': 'application/json' },
     });
   }
+// AuthService
+getExerciseRoutines(categoria: string): Observable<any> {
+  return this.http.post<any>(`${this.apiUrl}/get-exercise-routines`, { categoria }, {
+    headers: { 'Content-Type': 'application/json' },
+  });
+}
+
 
   // Actualizar perfil
   updateProfile(user: any): Observable<any> {
